@@ -25,8 +25,10 @@ Download and unzip our source code and executable programs - "grf.XXX.tar.gz".
 
 The source code is under "grf.XXX/src/".
 
-If you want to compile the source code yourself, add flag: "-std=c++11 -fopenmp". e.g.,
-
+If you want to compile the source code yourself, 
+(1) go to "grf.XXX/src/", and run "make" (easy way)
+ 
+or (2) use g++ to compile with flag: "-std=c++11 -fopenmp". e.g.,
 # cd grf.XXX/src/grf-main
 # g++ main.cpp DetectMITE.h DetectMITE.cpp DetectIR.h DetectIR.cpp functions.h functions.cpp -std=c++11 -fopenmp -O3 -o grf-main
 
