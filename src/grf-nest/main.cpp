@@ -113,7 +113,7 @@ void outputOverlap(const string & input, const string & genome,
                         index[end].end());
                 if (tmp.count(j)) {
                     flag = true;
-                    result[j].push_back(move(get<4>(v[i])));
+                    result[j].push_back(get<4>(v[i]));
                 }
             }
             if (!flag) {
@@ -124,7 +124,7 @@ void outputOverlap(const string & input, const string & genome,
                     index[j].push_back(id);
                 }
                 result.resize(id + 1);
-                result[id].push_back(move(get<4>(v[i])));
+                result[id].push_back(get<4>(v[i]));
                 id++;
             }
         }
