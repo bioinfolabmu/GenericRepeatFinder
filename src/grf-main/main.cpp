@@ -59,11 +59,29 @@ void checkParameter(int argc, char** argv, parameter & p) {
             "For MITE detection,\n"
             "--min_tsd <int>  Minimum length of TSDs; default = 2.\n"
             "--max_tsd <int>  Maximum length of TSDs; default = 10.\n"
+            "\n"
+            "To restrict terminal repeat (TR) and spacer length of detected TIRs, TDRs, and MITE candidates, set the following options:\n"
+            "Note: minimum TR length has been set in the mandatory parameter '--min_tr'.\n"
+            "--max_tr <int>  Maximum TR length.\n"
+            "--min_spacer_len <int>  Minimum spacer length.\n"
+            "--max_spacer_len <int>  Maximum spacer length.\n"
             ;
     if (argc == 1 || string(argv[1]) == "-h") {
         cout << help << endl;
         exit(0);
     }
+    
+    // get program path
+    {
+        string s = argv[0];
+        size_t pos = s.find_last_of("/");
+        if (pos == string::npos) {
+            p.program_path = ".";
+        } else {
+            p.program_path = s.substr(0, pos);
+        }
+    }
+    
     for (int i = 1; i < argc; i += 2) {
         string s(argv[i]);
         if (i + 1 >= argc) {
@@ -150,7 +168,13 @@ void checkParameter(int argc, char** argv, parameter & p) {
             if (p.format != 0 && p.format != 1) {
                 cerr << s << " " << v << "is not valid." << endl;
                 exit(1);
-            }
+            }        
+        } else if (s == "--max_tr") {
+            p.max_stem = checkInt2(s, v);
+        } else if (s == "--min_spacer_len") {
+            p.min_spacer_len = checkInt2(s, v);
+        } else if (s == "--max_spacer_len") {
+            p.max_spacer_len = checkInt2(s, v);
         } else {
             cerr << s << " is not valid." << endl;
             exit(1);

@@ -32,11 +32,15 @@ struct parameter {
     int max_space_ir = 980;
     int max_space_mite = 780;
     int max_space_dr = 980;
+    int max_stem = INT_MAX;
+    int min_spacer_len = 0;
+    int max_spacer_len = INT_MAX;
     float r = -2;
     float br = 0.8;
     string input = "";
     string output = "";
     string choice = "";
+    string program_path = "";
 };
 
 #endif /* PARAMETER_H */

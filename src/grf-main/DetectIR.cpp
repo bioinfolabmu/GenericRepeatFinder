@@ -76,6 +76,14 @@ void DetectIR::run() {
     out1.close();
     out2.close();
     out3.close();
+    
+    // filter results based on TR and spacer length
+    if (p.max_stem != INT_MAX 
+            || p.min_spacer_len != 0 || p.max_spacer_len != INT_MAX) {
+        filterByLen(file1);
+        filterByLen(file2);
+        filterByLen(file3);
+    }      
 }
 
 void DetectIR::identifyCandidate(int count) {
@@ -459,4 +467,25 @@ void DetectIR::outputCandidate(repeat & r, int i) {
     if (p.format == 0) {
         *out << genomeData[i].substr(r.start, size) << endl;
     }    
+}
+
+void DetectIR::filterByLen(const string & file) {
+    string newFile = file + ".filterd";
+    string cmd = p.program_path + "/grf-filter " 
+        + to_string(p.min_stem) + " "
+        + to_string(p.max_stem) + " "
+        + to_string(p.min_spacer_len) + " "
+        + to_string(p.max_spacer_len) + " "
+        + file + " " + newFile;
+
+    if (system(cmd.c_str())) {
+        cerr << "failed to execute command " << cmd << endl;
+        exit(1);
+    }
+
+    // remove unfiltered results
+    remove(file.c_str());
+
+    // rename the filtered results
+    rename(newFile.c_str(), file.c_str());
 }

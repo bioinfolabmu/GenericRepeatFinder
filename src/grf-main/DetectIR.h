@@ -46,6 +46,7 @@ public:
             int & mnum, int & inum, int & la, int & lb);
     void reduce(int i);
     void outputCandidate(repeat & r, int i);
+    void filterByLen(const string & file);
 protected:
     int max_space;
     parameter p;

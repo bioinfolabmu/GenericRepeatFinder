@@ -37,6 +37,12 @@ void DetectMITE::run() {
     }
     // Output candidates
     outputCandidate();
+    
+    // filter results based on TR and spacer length
+    if (p.max_stem != INT_MAX 
+            || p.min_spacer_len != 0 || p.max_spacer_len != INT_MAX) {
+        filterByLen(p.output + "/candidate.fasta");
+    }   
 }
 
 void DetectMITE::identifyCandidate(int count) {
