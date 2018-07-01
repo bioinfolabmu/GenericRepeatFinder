@@ -112,6 +112,12 @@ For MITE detection,
 --min_tsd <int>  Minimum length of TSDs; default = 2.
 --max_tsd <int>  Maximum length of TSDs; default = 10.
 
+To restrict terminal repeat (TR) and spacer length of detected TIRs, TDRs, and MITE candidates, set the following options:
+Note: minimum TR length has been set in the mandatory parameter '--min_tr'.
+--max_tr <int>  Maximum TR length.
+--min_spacer_len <int>  Minimum spacer length.
+--max_spacer_len <int>  Maximum spacer length.
+
 [3.1] TIR detection
 
 Use program "grf-main" with option "-c 0". e.g.,
