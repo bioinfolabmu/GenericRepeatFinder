@@ -39,14 +39,19 @@ void DetectDR::detectStr(int i, vector< pair<int, int> > & S_TR_SumScore,
         if (absSum <= max_absSum) {
             // seq len with longest extension region
             int max_ext = l + i;
-            string candidateSeq = (seq_len > j + max_ext)
-                    ? seq.substr(j, max_ext) : seq.substr(j, seq_len - j);
+            size_t start = j;
+            int len = max_ext;
+            
+            if (seq_len < j + max_ext) {
+                len = seq_len - j;
+            }
+            
             // verify base one by one
             // bases in boundary must match         
-            if (match(candidateSeq[0], candidateSeq[i + p.seed])) {
+            if (match(seq[start], seq[start + i + p.seed])) {
                 int unpair = 0;
                 for (int k = 1; k < p.seed; k++) {
-                    if (!match(candidateSeq[k], candidateSeq[k + i + p.seed])) {
+                    if (!match(seq[start + k], seq[start + k + i + p.seed])) {
                         unpair++;
                     }
                 }
@@ -54,6 +59,8 @@ void DetectDR::detectStr(int i, vector< pair<int, int> > & S_TR_SumScore,
                     // extend seed region
                     string cigar = "";
                     unsigned tr1 = 0, tr2 = 0;
+                    string candidateSeq = seq.substr(start, len);
+                    
                     if (p.max_indel) {
                         // allow gap
                         getStem2(candidateSeq, i + p.seed, cigar, tr1, tr2);
@@ -65,7 +72,7 @@ void DetectDR::detectStr(int i, vector< pair<int, int> > & S_TR_SumScore,
                         repeat tmp;
                         tmp.start = j;
                         tmp.end = j + candidateSeq.size() - 1;
-                        tmp.cigar = cigar;
+                        tmp.cigar = move(cigar);
                         tmp.tr1 = tr1;
                         tmp.tr2 = tr2;
                         v.push_back(move(tmp));

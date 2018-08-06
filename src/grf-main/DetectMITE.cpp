@@ -100,20 +100,24 @@ void DetectMITE::detectStr(int i, vector< pair<int, int> > & S_TR_SumScore,
                 + abs(S_TR_SumScore[j].second
                 + S_TR_SumScore[j + p.seed + i].second);
         // j is start pos in seq        
-        if (absSum <= max_absSum) {            
-            string candidateSeq = seq.substr(j, l);
+        if (absSum <= max_absSum) {
+            size_t start = j;
+            size_t end = j + l -1;
+            
             // verify base one by one
             // bases in boundary must match         
-            if (isPair(candidateSeq[0], candidateSeq[l - 1])) {
+            if (isPair(seq[start], seq[end])) {
                 int unpair = 0;
                 for (int k = 1; k < p.seed; k++) {
-                    if (!isPair(candidateSeq[k], candidateSeq[l - 1 - k])) {
+                    if (!isPair(seq[start + k], seq[end - k])) {
                         unpair++;
                     }
                 }
                 if (unpair <= p.seed_mismatch) {
+                    string candidateSeq = seq.substr(start, l);
+                    
                     // detect tsd
-                    string tsd = detectTSD(seq, j, j + l - 1, p.min_tsd,
+                    string tsd = detectTSD(seq, start, end, p.min_tsd,
                             p.max_tsd);
                     if (tsd != "" && tsd != "TA") {
                         // extend seed region
@@ -132,8 +136,8 @@ void DetectMITE::detectStr(int i, vector< pair<int, int> > & S_TR_SumScore,
                             mite tmp;
                             tmp.start = j;
                             tmp.end = j + l - 1;
-                            tmp.tir = cigar;
-                            tmp.tsd = tsd;
+                            tmp.tir = move(cigar);
+                            tmp.tsd = move(tsd);
                             tmp.tr1 = tr1;
                             tmp.tr2 = tr2;
                             v.push_back(move(tmp));

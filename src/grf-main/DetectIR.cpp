@@ -147,14 +147,16 @@ void DetectIR::detectStr(int i, vector< pair<int, int> > & S_TR_SumScore,
                 + abs(S_TR_SumScore[j].second
                 + S_TR_SumScore[j + p.seed + i].second);
         // j is start pos in seq
-        if (absSum <= max_absSum) {            
-            string candidateSeq = seq.substr(j, l);
+        if (absSum <= max_absSum) {
+            size_t start = j;
+            size_t end = start + l - 1;
+            
             // verify base one by one
             // bases in boundary must match         
-            if (isPair(candidateSeq[0], candidateSeq[l - 1])) {
+            if (isPair(seq[start], seq[end])) {
                 int unpair = 0;
                 for (int k = 1; k < p.seed; k++) {
-                    if (!isPair(candidateSeq[k], candidateSeq[l - 1 - k])) {
+                    if (!isPair(seq[start + k], seq[end - k])) {
                         unpair++;
                     }
                 }
@@ -162,6 +164,8 @@ void DetectIR::detectStr(int i, vector< pair<int, int> > & S_TR_SumScore,
                     // extend seed region
                     string cigar = "";
                     unsigned tr1 = 0, tr2 = 0;
+                    string candidateSeq = seq.substr(start, l);
+                    
                     if (p.max_indel) {
                         // allow gap
                         getStem2(candidateSeq, cigar, tr1, tr2);
@@ -173,7 +177,7 @@ void DetectIR::detectStr(int i, vector< pair<int, int> > & S_TR_SumScore,
                         repeat tmp;
                         tmp.start = j;
                         tmp.end = j + l - 1;
-                        tmp.cigar = cigar;
+                        tmp.cigar = move(cigar);
                         tmp.tr1 = tr1;
                         tmp.tr2 = tr2;
                         v.push_back(move(tmp));

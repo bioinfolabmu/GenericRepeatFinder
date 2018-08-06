@@ -105,11 +105,11 @@ string reverse(const string & s) {
 void fillMatrix(vector< vector< pair<int, char > > > & matrix,
         const string & a, const string & b, int match, int mismatch,
         int indel) {
+    vector<int> v(3);
+    char v2[3] = {'d', 'h', 'v'};
+    
     for (size_t i = 1; i < matrix.size(); i++) {
-        for (size_t j = 1; j < matrix[i].size(); j++) {
-            // d h v
-            vector<int> v(3);
-            vector<char> v2 = {'d', 'h', 'v'};
+        for (size_t j = 1; j < matrix[i].size(); j++) {   
             if (a[j - 1] == b[i - 1]) {
                 v[0] = matrix[i - 1][j - 1].first + match;
             } else {
