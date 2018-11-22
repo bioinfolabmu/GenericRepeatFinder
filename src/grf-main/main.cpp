@@ -24,11 +24,7 @@ void checkParameter(int argc, char** argv, parameter & p) {
             "-i <string>  Input genome sequence file in FASTA format.\n"
             "-c <int>  Choice of analysis: 0: TIR detection; 1: MITE candidate detection; 2: TDR detection.\n"
             "-o <string>  Output directory.\n"
-            "-r <float>  Maximum length ratio of spacer/total sequence; set -1 to be unlimited.\n"
             "--min_tr <int>  Minimum length of the terminal repeats; must >= 5.\n"
-            "--long_tr <int>  When the length of terminal repeats >= this value, "
-            "the restriction of '-r' will be removed; set -1 to disable this option.\n"
-            "\n"
             "[optional parameters]\n"
             "-t <int>  Number of threads used in this program; default = 1.\n"
             "-f <int> Format for outputs; 0: FASTA format; 1: only IDs; default = 0.\n"
@@ -37,7 +33,9 @@ void checkParameter(int argc, char** argv, parameter & p) {
             "--max_indel <int>  Maximum number of indels allowed in the terminal repeats; "
             "set -1 to be unlimited; default = -1.\n"
             "-p <int>  Maximum percentage of unpaired nucleotides in the terminal repeats; "
-            "set -1 to be unlimited; default = 10.\n"            
+            "set -1 to be unlimited; default = 10.\n"
+			"-r <float>  Maximum length ratio of spacer/total sequence; set -1 to be unlimited; "
+			"default = -1.\n"
             "-s <int>  Length of the seed region; default = 10; must >= 5 and <= '--min_tr'.\n"
             "--seed_mismatch <int>  Maximum mismatch number in the seed region; default = 1.\n"
             "--min_space <int>  Minimum distance between two seed regions; "
@@ -106,12 +104,6 @@ void checkParameter(int argc, char** argv, parameter & p) {
             if (p.min_stem < 5) {
                 cerr << s << " " << v << " is out of range." << endl;
                 exit(1);
-            }
-        } else if (s == "--long_tr") {
-            if (v == "-1") {
-                p.long_tr = -1;
-            } else {
-                p.long_tr = checkInt(s, v);
             }
         } else if (s == "--max_mismatch") {
             if (v != "-1") {
@@ -193,18 +185,8 @@ void checkParameter(int argc, char** argv, parameter & p) {
         cerr << "-o is missing." << endl;
         exit(1);
     }
-    if (p.r == -2) {
-        cerr << "-r is missing." << endl;
-    }
     if (p.min_stem == 0) {
         cerr << "--min_tr is missing." << endl;
-        exit(1);
-    }
-    if (p.long_tr == -2) {
-        cerr << "--long_tr is missing." << endl;
-        exit(1);
-    } else if (p.long_tr != -1 && p.long_tr < p.min_stem) {
-        cerr << "'--long_tr' must >= '--min_tr'." << endl;
         exit(1);
     }
     // check seed len and mismatch
