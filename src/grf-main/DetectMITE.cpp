@@ -119,7 +119,7 @@ void DetectMITE::detectStr(int i, vector< pair<int, int> > & S_TR_SumScore,
                     // detect tsd
                     string tsd = detectTSD(seq, start, end, p.min_tsd,
                             p.max_tsd);
-                    if (tsd != "" && tsd != "TA") {
+                    if (tsd != "") {
                         // extend seed region
                         string cigar = "";
                         unsigned tr1 = 0, tr2 = 0;
