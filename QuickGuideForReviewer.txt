@@ -26,7 +26,7 @@ To detect TIRs (20-1000 nt) with at most 10% unpaired bases in stems:
 
 # grf-main -i genome.fa -o . -c 0 --min_tr 10 -t 64
 
-To detect high-quality TIRs (length ratio of spacer/total length >= 0.2):
+To detect high-quality IRs (length ratio of spacer/total length >= 0.2):
 
 # grf-main -i genome.fa -o . -c 0 -r 0.2 --min_tr 10 -t 64
 
@@ -34,7 +34,7 @@ To detect long-stem TIRs (stem length >= 100 nt):
 
 # grf-main -i genome.fa -o . -c 0 --min_tr 100 -t 64
 
-To detect both high-quality and long-stem TIRs:
+To detect both high-quality and long-stem IRs:
 
 # grf-main -i genome.fa -o . -c 0 -r 0.2 --min_tr 10 --long_tr 100 -t 64
 
