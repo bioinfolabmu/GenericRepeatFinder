@@ -87,9 +87,6 @@ Usage: grf-main [options]
 -i <string>  Input genome sequence file in FASTA format.
 -c <int>  Choice of analysis: 0: TIR detection; 1: MITE candidate detection; 2: TDR detection.
 -o <string>  Output directory.
--r <float>  Maximum length ratio of spacer/total sequence; set -1 to be unlimited.
---min_tr <int>  Minimum length of the terminal repeats; must >= 5.
---long_tr <int>  When the length of terminal repeats >= this value, the restriction of '-r' will be removed; set -1 to disable this option.
 
 [optional parameters]
 -t <int>  Number of threads used in this program; default = 1.
@@ -97,6 +94,7 @@ Usage: grf-main [options]
 --max_mismatch <int>  Maximum number of mismatches allowed in the terminal repeats; set -1 to be unlimited; default = -1.
 --max_indel <int>  Maximum number of indels allowed in the terminal repeats; set -1 to be unlimited; default = -1.
 -p <int>  Maximum percentage of unpaired nucleotides in the terminal repeats; set -1 to be unlimited; default = 10.
+-r <float>  Maximum length ratio of spacer/total sequence; set -1 to be unlimited; default = -1.
 -s <int>  Length of the seed region; default = 10; must >= 5 and <= '--min_tr'.
 --seed_mismatch <int>  Maximum mismatch number in the seed region; default = 1.
 --min_space <int>  Minimum distance between two seed regions; for TIRs/TDRs, default = 0; for MITEs, default = 30.
@@ -122,13 +120,13 @@ Note: minimum TR length has been set in the mandatory parameter '--min_tr'.
 
 Use program "grf-main" with option "-c 0". e.g.,
 
-# grf-main -i genome.fa -o . -c 0 -r 0.2 --min_tr 10 --long_tr 100 -t 16
+# grf-main -i genome.fa -o . -c 0 --min_tr 10 -t 16
 
-Here, the input file is "genome.fa"; the output directory is current directory; minimum terminal repeat length = 10; the maximum length ratio of spacer/total sequence = 0.2; when terminal repeat length >= 100, the length ratio restriction will be disabled; 16 threads are used.
+Here, the input file is "genome.fa"; the output directory is current directory; minimum terminal repeat length = 10; 16 threads are used.
 
 To specify the maximum number of mismatches and indels in TRs, set '--max_mismatch' and '--max_indel' options. To change maximum percentage of unpaired bases, set '-p' option. e.g.,
 
-# grf-main -i genome.fa -o . -c 0 -r 0.2 --min_tr 10 --long_tr 100 -t 16 --max_indel 4 --max_mismatch 4 -p 20
+# grf-main -i genome.fa -o . -c 0 --min_tr 10 -t 16 --max_indel 4 --max_mismatch 4 -p 20
 
 Here, at most 4 indels and 4 mismatches are allowed in TRs, and at most 20% unpaired bases are allowed in TRs (all these criteria must be satisfied at the same time).
 
@@ -150,9 +148,9 @@ For TIR_pairing:
 			  
 Use program "grf-main" with option "-c 2". e.g.,
 
-# grf-main -i genome.fa -o . -c 2 -r -1 --min_tr 10 --long_tr -1 -t 16
+# grf-main -i genome.fa -o . -c 2 --min_tr 10 -t 16
 
-Here, the input file is "genome.fa"; the output directory is current directory; minimum terminal repeat length = 10; there is no limit for the maximum length ratio of spacer/total sequence; 16 threads are used.
+Here, the input file is "genome.fa"; the output directory is current directory; minimum terminal repeat length = 10; 16 threads are used.
 
 Outputs:
 
@@ -172,9 +170,9 @@ For TDR alignment:
 
 Use program "grf-main" with option "-c 1". e.g.,
 
-# grf-main -i genome.fa -o . -c 1 -r -1 --min_tr 10 --long_tr -1 -t 16
+# grf-main -i genome.fa -o . -c 1 --min_tr 10 -t 16
 
-Here, the input file is "genome.fa"; the output directory is current directory; minimum terminal repeat length = 10; there is no limit for the maximum length ratio of spacer/total sequence; 16 threads are used.
+Here, the input file is "genome.fa"; the output directory is current directory; minimum terminal repeat length = 10; 16 threads are used.
 
 Outputs:
 
@@ -470,15 +468,15 @@ The folder "tests" includes the genome FASTA file of Saccharomyces_cerevisiae.
 
 To detect TIR in the genome with 8 threads:
 
-# grf-main -i tests/Saccharomyces_cerevisiae.R64-1-1.dna.toplevel.fa -o tir -c 0 -r 0.2 --min_tr 10 --long_tr 100 -t 8
+# grf-main -i tests/Saccharomyces_cerevisiae.R64-1-1.dna.toplevel.fa -o tir -c 0 --min_tr 10 -t 8
 
 To detect TDR in the genome with 8 threads:
 
-# grf-main -i tests/Saccharomyces_cerevisiae.R64-1-1.dna.toplevel.fa -o tdr -c 2 -r -1 --min_tr 10 --long_tr -1 -t 8
+# grf-main -i tests/Saccharomyces_cerevisiae.R64-1-1.dna.toplevel.fa -o tdr -c 2 --min_tr 10 -t 8
 
 To detect MITE candidates in the genome with 8 threads:
 
-# grf-main -i tests/Saccharomyces_cerevisiae.R64-1-1.dna.toplevel.fa -o mite -c 1 -r -1 --min_tr 10 --long_tr -1 -t 8
+# grf-main -i tests/Saccharomyces_cerevisiae.R64-1-1.dna.toplevel.fa -o mite -c 1 --min_tr 10 -t 8
 
 To detect interspersed repeats in the genome with 8 threads:
 

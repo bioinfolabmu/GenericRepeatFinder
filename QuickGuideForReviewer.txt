@@ -18,21 +18,21 @@ Assuming the downloaded genome sequence is named "genome.fa", we performed follo
 
 To detect TIRs (20-1000 nt) with at most 4 mismatches and 4 indels in stems and at most 10% unpaired bases in stems with 64 threads:
 
-# grf-main -i genome.fa -o . -c 0 -r -1 --min_tr 10 --long_tr -1 --max_indel 4 --max_mismatch 4 -t 64
+# grf-main -i genome.fa -o . -c 0 --min_tr 10 --max_indel 4 --max_mismatch 4 -t 64
 
 Here, the output directory is current directory. In the output directory, "perfect.fasta" includes TIRs with perfect stems and no spacer in the middle; "perfect.spacer.fasta" includes TIRs with perfect stems and a spacer in the middle; "imperfect.fasta" includes TIRs with imperfect stems.
 
 To detect TIRs (20-1000 nt) with at most 10% unpaired bases in stems:
 
-# grf-main -i genome.fa -o . -c 0 -r -1 --min_tr 10 --long_tr -1 -t 64
+# grf-main -i genome.fa -o . -c 0 --min_tr 10 -t 64
 
 To detect high-quality TIRs (length ratio of spacer/total length >= 0.2):
 
-# grf-main -i genome.fa -o . -c 0 -r 0.2 --min_tr 10 --long_tr -1 -t 64
+# grf-main -i genome.fa -o . -c 0 -r 0.2 --min_tr 10 -t 64
 
 To detect long-stem TIRs (stem length >= 100 nt):
 
-# grf-main -i genome.fa -o . -c 0 -r -1 --min_tr 100 --long_tr -1 -t 64
+# grf-main -i genome.fa -o . -c 0 --min_tr 100 -t 64
 
 To detect both high-quality and long-stem TIRs:
 
@@ -76,7 +76,7 @@ The file "interspersed_repeat.filtered.out" includes the interspersed repeats wi
 
 (5) MITE detection
 
-# grf-main -i genome.fa -o . -c 1 -r -1 --min_tr 10 --long_tr -1 -t 64
+# grf-main -i genome.fa -o . -c 1 --min_tr 10 -t 64
 
 In the output directory, "candidate.fasta" includes MITE candidate sequences.
 
@@ -90,7 +90,7 @@ In the output directory, "mite.fasta" includes representative sequences of each 
 
 To detect candidate TDRs (TR: 100-3500 nt; spacer: 1000-20000 nt):
 
-# grf-main -i genome.fa -c 2 -o . -r -1 --min_tr 100 --long_tr -1 -t 64 --min_space 1090 --max_space 23490 --match 2 --mismatch 2 --indel 3 -f 1 -p 30
+# grf-main -i genome.fa -c 2 -o . --min_tr 100 -t 64 --min_space 1090 --max_space 23490 --match 2 --mismatch 2 --indel 3 -f 1 -p 30
 
 # cat perfect.id perfect.spacer.id imperfect.id > repeat.id
 	
