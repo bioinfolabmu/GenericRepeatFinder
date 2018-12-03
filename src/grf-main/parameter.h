@@ -9,7 +9,6 @@
 using std::string;
 
 struct parameter {
-    int long_tr = -2;
     int min_stem = 0;
     int min_tsd = 2;
     int max_tsd = 10;
@@ -35,7 +34,7 @@ struct parameter {
     int max_stem = INT_MAX;
     int min_spacer_len = 0;
     int max_spacer_len = INT_MAX;
-    float r = -2;
+    float r = -1;
     float br = 0.8;
     string input = "";
     string output = "";

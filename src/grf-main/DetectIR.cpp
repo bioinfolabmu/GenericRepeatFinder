@@ -455,9 +455,7 @@ void DetectIR::outputCandidate(repeat & r, int i) {
         out = &out3;
     }
     // filter
-    if (p.r != -1 
-            && !(p.long_tr != -1 && (int) r.tr1 >= p.long_tr 
-            && (int) r.tr2 >= p.long_tr)) {
+    if (p.r != -1) {
         unsigned spacer = size - r.tr1 - r.tr2;
         if (spacer > size * p.r) {
             return;

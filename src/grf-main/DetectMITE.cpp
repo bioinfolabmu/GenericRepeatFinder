@@ -168,10 +168,7 @@ void DetectMITE::outputCandidate() {
         for (size_t i = 0; i < candidates.size(); i++) {
             for (size_t k = 0; k < candidates[i][j].size(); k++) {
                 // filter
-                if (p.r != -1 
-                        && !(p.long_tr != -1 
-                        && (int) candidates[i][j][k].tr1 >= p.long_tr 
-                        && (int) candidates[i][j][k].tr2 >= p.long_tr)) {
+                if (p.r != -1) {
                     unsigned size = candidates[i][j][k].end 
                             - candidates[i][j][k].start + 1;
                     unsigned spacer = size - candidates[i][j][k].tr1 
