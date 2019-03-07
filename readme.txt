@@ -184,7 +184,7 @@ The identifier of each MITE sequence (e.g., ">6:2367817:2367964:10m:AT") has the
 
 (1) Use CD-HIT to cluster similar MITE sequences. e.g.,
 
-# cd-hit-est -i candidate.fasta -o clusteredCandidate.fasta -c 0.80 -n 5 -d 0 -T 16 -aL 0.99 -s 0.8 -M 0 > cd-hit-est.out
+# cd-hit-est -i candidate.fasta -o clusteredCandidate.fasta -c 0.90 -n 5 -d 0 -T 16 -aL 0.99 -s 0.8 -M 0 > cd-hit-est.out
 
 Detailed help information of "cd-hit-est" can be found by command:
 
