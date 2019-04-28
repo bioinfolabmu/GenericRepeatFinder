@@ -205,9 +205,9 @@ Detailed help information of "cd-hit-est" can be found by command:
 
 # cd-hit-est -h
 	
-(3) Use "grf-cluster" to filter results generated from "cd-hit-est" (i.e., "clusteredCandidate.fasta"):
+(3) Use "grf-mite-cluster" to filter results generated from "cd-hit-est" (i.e., "clusteredCandidate.fasta"):
 
-Usage: grf-cluster [options]
+Usage: grf-mite-cluster [options]
 [mandatory parameters]
 -i <string>  'cd-hit-est' output file: "*.clstr".
 -g <string>  Input genome sequence file in FASTA format.
@@ -224,7 +224,7 @@ In comparing flanking sequences of MITE candidates, the scoring matrix for align
 
 e.g., 
 
-# grf-cluster -i clusteredCandidate.fasta.clstr -g genome.fa -o .
+# grf-mite-cluster -i clusteredCandidate.fasta.clstr -g genome.fa -o .
 
 Outputs:
 

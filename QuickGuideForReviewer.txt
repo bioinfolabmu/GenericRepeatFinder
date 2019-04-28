@@ -82,7 +82,7 @@ In the output directory, "candidate.fasta" includes MITE candidate sequences.
 
 # cd-hit-est -i candidate.fasta -o clusteredCandidate.fasta -c 0.90 -n 5 -d 0 -T 16 -aL 0.99 -s 0.8 -M 0 > cd-hit-est.out
 
-# grf-cluster -i clusteredCandidate.fasta.clstr -g genome.fa -o .
+# grf-mite-cluster -i clusteredCandidate.fasta.clstr -g genome.fa -o .
 
 In the output directory, "mite.fasta" includes representative sequences of each MITE family; "miteSet.fasta" inlcludes all MITE sequences in each family.
 
