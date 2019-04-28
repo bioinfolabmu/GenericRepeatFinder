@@ -166,9 +166,26 @@ For TDR alignment:
 	"I" means insertions in base alignment;
 	"D" means deletions in base alignment;
 
-[3.3] MITE candidate detection
+[3.3] MITE detection
 
-Use program "grf-main" with option "-c 1". e.g.,
+[3.3.1] Automated script for MITE detection
+
+To use the automated script for MTIE detection, add (1) "bin/" of GRF and (2) CD-HIT to your $PATH and run the script "script/run_mite_detection.sh". To set different parameters in different steps, switch to section [3.3.2].
+
+Usage: run_mite_detection.sh <input_genome_fasta> <output_dir>
+
+e.g.,
+
+# run_mite_detection.sh -i genome.fa -o .
+
+In the output directory:
+
+"mite.fasta": representative sequences of each MITE family.
+"miteSet.fasta": all MITE sequences in each family; each family is separated by dashes.
+
+[3.3.2] Different steps in MITE detection
+
+(1) Use program "grf-main" with option "-c 1" to do MITE candidate detection. e.g.,
 
 # grf-main -i genome.fa -o . -c 1 --min_tr 10 -t 16
 
@@ -180,9 +197,7 @@ Outputs:
 
 The identifier of each MITE sequence (e.g., ">6:2367817:2367964:10m:AT") has the format: ">ChromosomeName:GenomicStartPosition:GenomicStopPosition:TIR_pairing:TSD_sequence".
 
-[3.4] MITE family clustering and filtration
-
-(1) Use CD-HIT to cluster similar MITE sequences. e.g.,
+(2) Use CD-HIT to cluster similar MITE sequences. e.g.,
 
 # cd-hit-est -i candidate.fasta -o clusteredCandidate.fasta -c 0.90 -n 5 -d 0 -T 16 -aL 0.99 -s 0.8 -M 0 > cd-hit-est.out
 
@@ -190,7 +205,7 @@ Detailed help information of "cd-hit-est" can be found by command:
 
 # cd-hit-est -h
 	
-(2) Use "grf-cluster" to filter results generated from "cd-hit-est" (i.e., "clusteredCandidate.fasta"):
+(3) Use "grf-cluster" to filter results generated from "cd-hit-est" (i.e., "clusteredCandidate.fasta"):
 
 Usage: grf-cluster [options]
 [mandatory parameters]
@@ -218,7 +233,7 @@ Outputs:
 
 The identifier of the representative sequence of each MITE family (e.g., ">6:2367817:2367964:10m:AT:10") has the format: ">ChromosomeName:GenomicStartPosition:GenomicStopPosition:TIR_pairing:TSD_seqeunce:CopyNumber".
 
-[3.5] Find nested TIRs/MITEs
+[3.4] Find nested TIRs/MITEs
 
 Usage: grf-nest <input_fasta> <genome_fasta> <output_fasta>
 
@@ -228,7 +243,7 @@ e.g.,
 
 The output file includes groups of nested TIR/MITE sequences; each group is separated by dashes; the first sequence in each group is the longest sequence, and the rest sequences in the group are within the spacer of the largest sequence.
 
-[3.6] Interspersed repeat detection
+[3.5] Interspersed repeat detection
 
 Usage: grf-intersperse [options]
 [mandatory parameters]
@@ -262,7 +277,7 @@ GAGAGGTCCAACGTAATTTATTACTCTTATAAAAGAGGGAACTCGACTGAAAGGAGAGG
 
 The output represents a group of interspersed repeats with the identifiers (">chromosome:start:end:strand") and sequences.
 
-[3.7] Show Dot-Bracket Notation (DBN) structures of TIRs/MITEs
+[3.6] Show Dot-Bracket Notation (DBN) structures of TIRs/MITEs
 
 Usage: grf-dbn <input_fasta> <output_dbn>
 
@@ -272,7 +287,7 @@ e.g.,
 
 Outputs: DBN format of TIR/MITE sequences.
 
-[3.8] Show alignments of TIRs/TDRs/MITEs
+[3.7] Show alignments of TIRs/TDRs/MITEs
 
 Usage: grf-alignment <type> <input_fasta> <output>
 type <int>  input sequence type; 1: inverted repeats (or MITEs); 2: direct repeats.
@@ -311,7 +326,7 @@ AGTCTTCTTATCTTAAC
 |||||||||| | ||||
 AGTCTTCTTA-CGTAAC
 
-[3.9] Filter TIRs/TDRs/MITEs according to given spacer and terminal repeat (TR) lengths
+[3.8] Filter TIRs/TDRs/MITEs according to given spacer and terminal repeat (TR) lengths
 
 Usage: grf-filter <min_TR_len> <max_TR_len> <min_spacer_len> <max_spacer_len> <input_fasta> <output>
 
@@ -319,7 +334,7 @@ e.g.,
 
 # grf-filter 20 100 10 50 imperfect.fasta imperfect.filtered.fasta
 
-[3.10] Show the alignments and consensus sequences of interspersed repeats
+[3.9] Show the alignments and consensus sequences of interspersed repeats
 
 Usage: grf-alignment2 <input> <output>
 The input file must be the output file of grf-intersperse (i.e., interspersed_repeat.out) and it must include repeat sequences.
