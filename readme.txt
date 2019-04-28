@@ -172,11 +172,11 @@ For TDR alignment:
 
 To use the automated script for MTIE detection, add (1) "bin/" of GRF and (2) CD-HIT to your $PATH and run the script "script/run_mite_detection.sh". To set different parameters in different steps, switch to section [3.3.2].
 
-Usage: run_mite_detection.sh <input_genome_fasta> <output_dir>
+Usage: run_mite_detection.sh <input_genome_fasta> <output_dir> <num_threads>
 
 e.g.,
 
-# run_mite_detection.sh -i genome.fa -o .
+# run_mite_detection.sh -i genome.fa -o . 16
 
 In the output directory:
 
