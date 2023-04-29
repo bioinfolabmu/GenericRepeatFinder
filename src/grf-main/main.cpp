@@ -74,7 +74,7 @@ void checkParameter(int argc, char** argv, parameter & p) {
         string s = argv[0];
         size_t pos = s.find_last_of("/");
         if (pos == string::npos) {
-            p.program_path = ".";
+            p.program_path = "";
         } else {
             p.program_path = s.substr(0, pos);
         }
