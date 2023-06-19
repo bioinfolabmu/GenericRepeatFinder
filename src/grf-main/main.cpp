@@ -76,7 +76,7 @@ void checkParameter(int argc, char** argv, parameter & p) {
         if (pos == string::npos) {
             p.program_path = "";
         } else {
-            p.program_path = s.substr(0, pos);
+            p.program_path = s.substr(0, pos + 1);
         }
     }
     

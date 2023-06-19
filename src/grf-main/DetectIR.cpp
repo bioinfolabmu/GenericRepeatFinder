@@ -473,7 +473,7 @@ void DetectIR::outputCandidate(repeat & r, int i) {
 
 void DetectIR::filterByLen(const string & file) {
     string newFile = file + ".filterd";
-    string cmd = p.program_path + "/grf-filter " 
+    string cmd = p.program_path + "grf-filter " 
         + to_string(p.min_stem) + " "
         + to_string(p.max_stem) + " "
         + to_string(p.min_spacer_len) + " "
